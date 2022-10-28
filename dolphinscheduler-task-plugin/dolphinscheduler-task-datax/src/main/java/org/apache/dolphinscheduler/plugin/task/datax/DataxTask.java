@@ -324,7 +324,7 @@ public class DataxTask extends AbstractTaskExecutor {
             writerParam.put("accessKey", dataTargetCfg.getPassword());
             writerParam.put("index", elasticSearchDataxParams.getIndex());
             writerParam.put("type", elasticSearchDataxParams.getType());
-            writerParam.put("cleanup", elasticSearchDataxParams.isClearnUp());
+            writerParam.put("cleanup", elasticSearchDataxParams.isCleanUp());
             if (elasticSearchDataxParams.getTyrSize() > 0) {
                 writerParam.put("trySize", elasticSearchDataxParams.getTyrSize());
             }

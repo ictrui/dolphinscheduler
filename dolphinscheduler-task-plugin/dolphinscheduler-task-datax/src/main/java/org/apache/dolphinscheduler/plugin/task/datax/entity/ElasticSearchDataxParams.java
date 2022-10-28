@@ -12,7 +12,7 @@ import lombok.ToString;
 public class ElasticSearchDataxParams {
     private String index;
     private String type;
-    private boolean clearnUp;
+    private boolean cleanUp;
     private String splitter;
     private int tyrSize;
     private int timeout;

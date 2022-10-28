@@ -676,6 +676,7 @@ public class DataSourceServiceImpl extends BaseServiceImpl implements DataSource
         }
         String schemaPattern = null;
         switch (dbType) {
+            case DM:
             case HIVE:
                 schemaPattern = connectionParam.getDatabase();
                 break;

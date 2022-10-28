@@ -54,6 +54,8 @@ export function useForm(id?: number) {
     requiredDataBase: true,
     showConnectType: false,
     showPrincipal: false,
+    databaseShow: true,
+    jdbcShow: true,
     rules: {
       name: {
         trigger: ['input'],
@@ -129,7 +131,14 @@ export function useForm(id?: number) {
     if (type === 'ORACLE' && !id) {
       state.detailForm.connectType = 'ORACLE_SERVICE_NAME'
     }
-    state.requiredDataBase = type !== 'POSTGRESQL'
+    if (type === 'ELASTICSEARCH') {
+      state.databaseShow = false
+      state.jdbcShow = false
+    } else {
+      state.databaseShow = true
+      state.jdbcShow = true
+    }
+    state.requiredDataBase = type !== 'POSTGRESQL' && type !== 'ELASTICSEARCH'
     state.showConnectType = type === 'ORACLE'
 
     if (type === 'HIVE' || type === 'SPARK') {
@@ -219,6 +228,16 @@ export const datasourceType: IDataBaseOptionKeys = {
     value: 'REDSHIFT',
     label: 'REDSHIFT',
     defaultPort: 5439
+  },
+  DM: {
+    value: 'DM',
+    label: 'DM',
+    defaultPort: 5236
+  },
+  ELASTICSEARCH: {
+    value: 'ELASTICSEARCH',
+    label: 'ELASTICSEARCH',
+    defaultPort: 9200
   }
 }
 

@@ -26,6 +26,8 @@ type IDataBase =
   | 'DB2'
   | 'PRESTO'
   | 'REDSHIFT'
+  | 'DM'
+  | 'ELASTICSEARCH'
 
 interface IDataSource {
   id?: number

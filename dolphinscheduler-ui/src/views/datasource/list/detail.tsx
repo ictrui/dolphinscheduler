@@ -118,6 +118,8 @@ const DetailModal = defineComponent({
       requiredDataBase,
       showConnectType,
       showPrincipal,
+      databaseShow,
+      jdbcShow,
       loading,
       saving,
       testing,
@@ -281,6 +283,7 @@ const DetailModal = defineComponent({
                 <NFormItem
                   label={t('datasource.database_name')}
                   path='database'
+                  v-show={databaseShow}
                   show-require-mark={requiredDataBase}
                 >
                   <NInput
@@ -311,6 +314,7 @@ const DetailModal = defineComponent({
                 <NFormItem
                   label={t('datasource.jdbc_connect_parameters')}
                   path='other'
+                  v-show={jdbcShow}
                 >
                   <NInput
                     class='input-jdbc-params'

@@ -25,6 +25,10 @@ import type {
   FormRules,
   IJsonItemParams
 } from '@/components/form/types'
+import {
+  elasticSearchDataxParams,
+  fieldMappingListItem
+} from '@/components/form/types'
 export type { EditWorkflowDefinition } from '@/views/projects/workflow/components/dag/types'
 export type {
   IWorkflowTaskInstance,
@@ -306,6 +310,17 @@ interface ITaskParams {
   udfs?: string
   connParams?: string
   targetJobName?: string
+  sourceTable?: string
+  where?: string
+  splitPk?: string
+  dsPartitions?: string[]
+  dtPartitions?: string[]
+  writeMode?: string
+  elasticSearchDataxParams?: elasticSearchDataxParams
+  dsColumns?: fieldMappingListItem[]
+  dtColumns?: fieldMappingListItem[]
+  batchSize?: number
+  channel?: number
 }
 
 interface INodeData

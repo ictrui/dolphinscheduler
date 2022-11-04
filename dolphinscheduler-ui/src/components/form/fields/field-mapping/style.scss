@@ -1,0 +1,17 @@
+.box{
+  display: flex;
+  width: 100%;
+  min-height: 100px;
+  .left,.right{
+    width: 45%;
+    flex-shrink: 0;
+  }
+  .center{
+    flex: 1;
+  }
+}
+.content{
+  height: 34px;
+  text-align: center;
+  line-height: 34px;
+}

@@ -61,10 +61,24 @@ interface TypeReq {
   type: IDataBase
 }
 
+interface TableColumnsWithType {
+  datasourceId: string
+  tableName: string
+}
+
 interface NameReq {
   name: string
 }
 
 type IdReq = number
 
-export { ListReq, IDataBase, IDataSource, UserIdReq, TypeReq, NameReq, IdReq }
+export {
+  ListReq,
+  IDataBase,
+  IDataSource,
+  UserIdReq,
+  TypeReq,
+  NameReq,
+  IdReq,
+  TableColumnsWithType
+}

@@ -18,8 +18,9 @@ import * as Field from './index'
 import { camelCase, upperFirst, isFunction } from 'lodash'
 import type { FormRules, FormItemRule } from 'naive-ui'
 import type { IJsonItem } from '../types'
+import { IType } from '../types'
 
-const TYPES = [
+const TYPES: IType[] = [
   'input',
   'radio',
   'editor',
@@ -31,7 +32,10 @@ const TYPES = [
   'tree-select',
   'multi-input',
   'custom',
-  'multi-condition'
+  'multi-condition',
+  'dspartition-input',
+  'divider',
+  'field-mapping'
 ]
 
 const getField = (
@@ -45,15 +49,31 @@ const getField = (
   if (type === 'custom') {
     return widget || null
   }
+
+  if (!field) {
+    // @ts-ignore
+    return Field[renderTypeName](item, fields)
+  }
+  //支持表单嵌套层级 例如form.data.name
+  const params = {
+    item,
+    fields
+  }
+  const fieldArr = field.split('.')
+  for (let i = 0; i < fieldArr.length - 1; i++) {
+    params.item = { ...item, field: fieldArr[i + 1] }
+    params.fields = params.fields[fieldArr[i]]
+  }
+
   // TODO Support other widgets later
   if (type === 'custom-parameters') {
     let fieldRules: { [key: string]: FormItemRule }[] = []
     if (rules && !rules[field]) fieldRules = rules[field] = []
     // @ts-ignore
-    return Field[renderTypeName](item, fields, fieldRules)
+    return Field[renderTypeName](params.item, params.fields, fieldRules)
   }
   // @ts-ignore
-  return Field[renderTypeName](item, fields)
+  return Field[renderTypeName](params.item, params.fields)
 }
 
 export default getField

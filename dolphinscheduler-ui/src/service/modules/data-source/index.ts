@@ -22,7 +22,8 @@ import {
   UserIdReq,
   TypeReq,
   NameReq,
-  IdReq
+  IdReq,
+  TableColumnsWithType
 } from './types'
 
 export function queryDataSourceListPaging(params: ListReq): any {
@@ -136,6 +137,14 @@ export function getDatasourceTablesById(datasourceId: number): any {
     params: {
       datasourceId
     }
+  })
+}
+
+export function queryTableColumnsWithType(params: TableColumnsWithType): any {
+  return axios({
+    url: '/datasources/tableColumnsWithType',
+    method: 'get',
+    params
   })
 }
 

@@ -20,6 +20,7 @@ import { useFormItem } from 'naive-ui/es/_mixins'
 import { NFormItemGi, NSpace, NGrid, NInput } from 'naive-ui'
 import { isFunction } from 'lodash'
 import type { IJsonItem, FormItemRule } from '../types'
+import { useI18n } from 'vue-i18n'
 
 const DspartitionInput = defineComponent({
   name: 'MultiInput',
@@ -48,17 +49,17 @@ export function renderDspartitionInput(
   fields: { [field: string]: any },
   unused: { [key: string]: FormItemRule }[]
 ) {
-  const { field } = isFunction(item) ? item() : item
+  const { t } = useI18n()
+  const { field, props } = isFunction(item) ? item() : item
 
   const getChild = (value: string, i: number) => {
-    const mergedItem = isFunction(item) ? item() : item
     const [prefix, v] = value.split('=')
     return [
       h(
         NFormItemGi,
         {
           showLabel: true,
-          path: `${mergedItem.field}[${i}]`,
+          path: `${field}[${i}]`,
           span: 24,
           label: prefix + '=',
           labelPlacement: 'left',
@@ -66,10 +67,10 @@ export function renderDspartitionInput(
         },
         () =>
           h(NInput, {
-            ...mergedItem.props,
+            ...props,
             value: v,
             onUpdateValue: (value: string) =>
-              void (fields[mergedItem.field][i] = prefix + '=' + value)
+              void (fields[field][i] = prefix + '=' + value)
           })
       )
     ]
@@ -77,27 +78,41 @@ export function renderDspartitionInput(
 
   //initialize the component by using data
   const getChildren = () => {
-    const mergedItem = isFunction(item) ? item() : item
     if (!fields[field] || fields[field].length === 0) {
-      return h(NGrid, { xGap: 10 }, () => [
-        h(
-          NFormItemGi,
-          {
-            showLabel: false,
-            span: 24
-          },
-          () =>
-            h(NInput, {
-              ...mergedItem.props,
-              value: '暂无分区信息！'
-            })
-        )
-      ])
+      return [
+        h(NGrid, { xGap: 10 }, () => [
+          h(
+            NFormItemGi,
+            {
+              showLabel: false,
+              span: 24
+            },
+            () =>
+              h(NInput, {
+                ...props,
+                value: t('project.node.hive_text')
+              })
+          )
+        ])
+      ]
     }
     return fields[field].map((value: string, i: number) => {
       return h(NGrid, { xGap: 10 }, () => [...getChild(value, i)])
     })
   }
+
+  const { showTips } = props
+  const tips = h(
+    NFormItemGi,
+    {
+      showLabel: false,
+      span: 24
+    },
+    () => h('div', { style: 'color:#ff0000' }, t('project.node.hive_tips'))
+  )
+
+  const renderDefault = [...getChildren()]
+  showTips && renderDefault.push(tips)
 
   return h(
     DspartitionInput,
@@ -105,7 +120,7 @@ export function renderDspartitionInput(
       name: field
     },
     {
-      default: getChildren
+      default: () => renderDefault
     }
   )
 }

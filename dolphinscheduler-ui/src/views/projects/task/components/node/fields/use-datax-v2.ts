@@ -700,7 +700,8 @@ export function useDataX(model: { [field: string]: any }): IJsonItem[] {
       name: t('project.node.dsPartitions_field'),
       span: dtPartitionsSpan,
       props: {
-        placeholder: t('project.node.dsPartitions_field_tips')
+        placeholder: t('project.node.dsPartitions_field_tips'),
+        showTips: true
       },
       validate: {
         trigger: ['input', 'blur'],
@@ -1007,7 +1008,8 @@ export function useDataX(model: { [field: string]: any }): IJsonItem[] {
           }
           return true
         }
-      }
+      },
+      value: 1024
     },
     {
       type: 'input-number',
@@ -1028,7 +1030,8 @@ export function useDataX(model: { [field: string]: any }): IJsonItem[] {
           }
           return true
         }
-      }
+      },
+      value: 1
     },
     {
       type: 'select',
@@ -1044,7 +1047,7 @@ export function useDataX(model: { [field: string]: any }): IJsonItem[] {
       name: t('project.node.datax_job_speed_record'),
       span: jobSpeedSpan,
       options: jobSpeedRecordOptions,
-      value: 1000
+      value: 0
     },
     {
       type: 'input-number',

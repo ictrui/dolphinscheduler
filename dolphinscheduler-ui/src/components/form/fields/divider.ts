@@ -15,17 +15,15 @@
  * limitations under the License.
  */
 
-export { renderInput } from './input'
-export { renderRadio } from './radio'
-export { renderEditor } from './monaco-editor'
-export { renderCustomParameters } from './custom-parameters'
-export { renderSwitch } from './switch'
-export { renderInputNumber } from './input-number'
-export { renderSelect } from './select'
-export { renderCheckbox } from './checkbox'
-export { renderTreeSelect } from './tree-select'
-export { renderMultiInput } from './multi-input'
-export { renderMultiCondition } from './multi-condition'
-export { renderDspartitionInput } from './dspartitions-input'
-export { renderDivider } from './divider'
-export { renderFieldMapping } from './field-mapping/field-mapping'
+import { h } from 'vue'
+import { NDivider } from 'naive-ui'
+import { isFunction } from 'lodash'
+import type { IJsonItem } from '../types'
+
+export function renderDivider(
+  item: IJsonItem,
+  fields: { [field: string]: any }
+) {
+  const { props } = isFunction(item) ? item() : item
+  return h(NDivider, () => props.title || '')
+}

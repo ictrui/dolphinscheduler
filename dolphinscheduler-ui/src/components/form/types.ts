@@ -30,6 +30,9 @@ type IType =
   | 'multi-input'
   | 'custom'
   | 'multi-condition'
+  | 'dspartition-input'
+  | 'divider'
+  | 'field-mapping'
 
 interface IOption {
   [key: string]: any
@@ -66,11 +69,37 @@ interface IJsonItemParams {
   class?: string
   path?: string
   rule?: FormItemRule
+  group?: string
 }
 
 type IJsonItemFn = (i?: number) => IJsonItemParams
 
 type IJsonItem = IJsonItemParams | IJsonItemFn
+
+interface elasticSearchDataxParams {
+  index: string
+  type?: string
+  cleanUp?: boolean
+  splitter?: string
+  tyrSize?: number
+  timeout?: number
+  discovery?: boolean
+  compression?: boolean
+  multiThread?: boolean
+  ignoreWriteError?: boolean
+  ignoreParseError?: boolean
+  alias?: string
+  aliasMode?: number
+  settings?: string
+}
+
+interface fieldMappingListItem {
+  index: number
+  columnName: string
+  dataType: string
+  enable: boolean
+  json: string
+}
 
 export {
   IMeta,
@@ -81,5 +110,7 @@ export {
   FormRules,
   IFormItem,
   GridProps,
-  IJsonItemParams
+  IJsonItemParams,
+  elasticSearchDataxParams,
+  fieldMappingListItem
 }

@@ -240,6 +240,17 @@ export function formatParams(data: INodeData): {
       taskParams.jobSpeedRecord = data.jobSpeedRecord
       taskParams.preStatements = data.preStatements
       taskParams.postStatements = data.postStatements
+      taskParams.sourceTable = data.sourceTable
+      taskParams.where = data.where
+      taskParams.splitPk = data.splitPk
+      taskParams.dsPartitions = data.dsPartitions
+      taskParams.dtPartitions = data.dtPartitions
+      taskParams.writeMode = data.writeMode
+      taskParams.elasticSearchDataxParams = data.elasticSearchDataxParams
+      taskParams.dsColumns = data.dsColumns
+      taskParams.dtColumns = data.dtColumns
+      taskParams.batchSize = data.batchSize
+      taskParams.channel = data.channel
     } else {
       taskParams.json = data.json
       data?.localParams?.map((param: ILocalParam) => {

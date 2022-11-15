@@ -16,7 +16,14 @@
  */
 
 import { defineComponent, PropType, toRefs, h, unref } from 'vue'
-import { NSpin, NGrid, NForm, NFormItemGi } from 'naive-ui'
+import {
+  NSpin,
+  NGrid,
+  NForm,
+  NFormItemGi,
+  NCollapse,
+  NCollapseItem
+} from 'naive-ui'
 import { useForm } from './use-form'
 import type { GridProps, IMeta } from './types'
 

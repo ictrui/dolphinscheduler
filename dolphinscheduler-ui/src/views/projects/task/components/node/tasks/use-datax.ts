@@ -48,7 +48,34 @@ export function useDataX({
     dsType: 'MYSQL',
     dtType: 'MYSQL',
     preStatements: [],
-    postStatements: []
+    postStatements: [],
+    targetTable: '',
+    where: '',
+    splitPk: '',
+    dsPartitions: [],
+    dtPartitions: [],
+    writeMode: '',
+    elasticSearchDataxParams: {
+      alias: '',
+      aliasMode: 0,
+      cleanUp: false,
+      compression: true,
+      discovery: false,
+      dynamic: false,
+      ignoreParseError: false,
+      ignoreWriteError: false,
+      index: '',
+      multiThread: true,
+      settings: '',
+      splitter: '',
+      timeout: 600000,
+      type: '',
+      tyrSize: 30
+    },
+    dsColumns: [],
+    dtColumns: [],
+    batchSize: 0,
+    channel: 0
   } as INodeData)
 
   let extra: IJsonItem[] = []

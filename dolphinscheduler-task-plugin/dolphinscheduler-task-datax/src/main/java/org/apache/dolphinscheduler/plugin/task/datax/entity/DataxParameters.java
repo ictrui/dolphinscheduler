@@ -18,6 +18,7 @@
 package org.apache.dolphinscheduler.plugin.task.datax.entity;
 
 import lombok.Data;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.dolphinscheduler.plugin.task.api.enums.ResourceType;
 import org.apache.dolphinscheduler.plugin.task.api.model.ResourceInfo;
 import org.apache.dolphinscheduler.plugin.task.api.parameters.AbstractParameters;
@@ -176,32 +177,23 @@ public class DataxParameters extends AbstractParameters {
     private int xmx;
     @Override
     public boolean checkParameters() {
-        //TODO: 待前端接入后更新
         if(customConfig == Flag.YES.ordinal()){
             return StringUtils.isNotEmpty(json);
         }
-        else {
+        else if(customSQL == Flag.YES.ordinal()) {
+            //TODO: 暂不支持customSQL
             return dataSource != 0
                     && dataTarget != 0
                     && StringUtils.isNotEmpty(sql)
                     && StringUtils.isNotEmpty(targetTable);
+        }else {
+            return dataSource != 0
+                    && dataTarget != 0
+                    && StringUtils.isNotEmpty(sourceTable)
+                    && (StringUtils.isNotEmpty(targetTable) || StringUtils.isNotEmpty(elasticSearchDataxParams.getIndex()))
+                    && CollectionUtils.isNotEmpty(dsColumns)
+                    && CollectionUtils.isNotEmpty(dtColumns);
         }
-//        if(customConfig == Flag.YES.ordinal()){
-//            return StringUtils.isNotEmpty(json);
-//        }
-//        else if(customSQL == Flag.YES.ordinal()) {
-//            return dataSource != 0
-//                    && dataTarget != 0
-//                    && StringUtils.isNotEmpty(sql)
-//                    && StringUtils.isNotEmpty(targetTable);
-//        }else {
-//            return dataSource != 0
-//                    && dataTarget != 0
-//                    && StringUtils.isNotEmpty(sourceTable)
-//                    && StringUtils.isNotEmpty(targetTable)
-//                    && CollectionUtils.isNotEmpty(dsColumns)
-//                    && CollectionUtils.isNotEmpty(dtColumns);
-//        }
     }
 
     @Override

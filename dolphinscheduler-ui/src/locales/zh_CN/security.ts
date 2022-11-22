@@ -230,6 +230,10 @@ export default {
     RoomId: '房间',
     ToPersonId: '用户',
     ToPersonEmail: '用户邮箱',
+    producerGroupName: '生产者组名称',
+    namesrvAddr: 'NameServer地址',
+    topic: '主题',
+    tags: '标签',
     // eslint-disable-next-line quotes
     AtSomeoneInRoom: "{'@'}房间中的成员",
     Destination: '目的地',

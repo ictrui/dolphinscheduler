@@ -66,6 +66,7 @@
         <commons.codec.version>1.11</commons.codec.version>
         <commons.logging.version>1.1.1</commons.logging.version>
         <httpclient.version>4.5.13</httpclient.version>
+        <rocketmq-client.version>4.9.4</rocketmq-client.version>
         <httpcore.version>4.4.15</httpcore.version>
         <junit.version>4.12</junit.version>
         <mysql.connector.version>8.0.16</mysql.connector.version>
@@ -391,6 +392,11 @@
             <dependency>
                 <groupId>org.apache.dolphinscheduler</groupId>
                 <artifactId>dolphinscheduler-alert-telegram</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dolphinscheduler</groupId>
+                <artifactId>dolphinscheduler-alert-rocketmq</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

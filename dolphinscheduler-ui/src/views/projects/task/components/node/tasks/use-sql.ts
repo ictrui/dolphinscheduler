@@ -49,6 +49,7 @@ export function useSql({
     segmentSeparator: '',
     sql: '',
     sqlType: '0',
+    queryResultSendType: '0',
     preStatements: [],
     postStatements: [],
     udfs: []

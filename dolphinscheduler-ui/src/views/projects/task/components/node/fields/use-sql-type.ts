@@ -26,8 +26,11 @@ export function useSqlType(model: { [field: string]: any }): IJsonItem[] {
   const querySpan = computed(() => (model.sqlType === '0' ? 6 : 0))
   const nonQuerySpan = computed(() => (model.sqlType === '1' ? 18 : 0))
   const emailSpan = computed(() =>
-    model.sqlType === '0' && model.sendEmail ? 24 : 0
+    model.sqlType === '0' && model.queryResultSendType === '1' ? 24 : 0
   )
+  const queryResultSendSpan = computed(() =>
+  model.sqlType === '0' && model.queryResultSendType !== '0' ? 24 : 0
+)
   const groups = ref([])
   const groupsLoading = ref(false)
   const SQL_TYPES = [
@@ -39,6 +42,11 @@ export function useSqlType(model: { [field: string]: any }): IJsonItem[] {
       value: '1',
       label: t('project.node.sql_type_non_query')
     }
+  ]
+  const QUERY_RESULT_SEND_TYPES = [
+    { label: t('project.node.send_to_nothing'), value: '0' },
+    { label: t('project.node.send_emails'), value: '1' },
+    { label: t('project.node.send_to_rocket_mq'), value: '2' },
   ]
 
   const getGroups = async () => {
@@ -78,10 +86,15 @@ export function useSqlType(model: { [field: string]: any }): IJsonItem[] {
       span: nonQuerySpan
     },
     {
-      type: 'switch',
-      field: 'sendEmail',
-      span: querySpan,
-      name: t('project.node.send_email')
+      type: 'select',
+      field: 'queryResultSendType',
+      span: 6,
+      name: t('project.node.query_result_send_type'),
+      options: QUERY_RESULT_SEND_TYPES,
+      validate: {
+        trigger: ['input', 'blur'],
+        required: true
+      }
     },
     {
       type: 'select',
@@ -124,7 +137,7 @@ export function useSqlType(model: { [field: string]: any }): IJsonItem[] {
         trigger: ['input', 'blur'],
         required: true,
         validator(unuse, value) {
-          if (model.sendEmail && !value)
+          if (model.queryResultSendType === '1' && !value)
             return new Error(t('project.node.title_tips'))
         }
       }
@@ -134,7 +147,7 @@ export function useSqlType(model: { [field: string]: any }): IJsonItem[] {
       field: 'groupId',
       name: t('project.node.alarm_group'),
       options: groups,
-      span: emailSpan,
+      span: queryResultSendSpan,
       props: {
         loading: groupsLoading,
         placeholder: t('project.node.alarm_group_tips')
@@ -143,7 +156,7 @@ export function useSqlType(model: { [field: string]: any }): IJsonItem[] {
         trigger: ['input', 'blur'],
         required: true,
         validator(unuse, value) {
-          if (model.sendEmail && !value)
+          if (model.queryResultSendType !== '0' && !value)
             return new Error(t('project.node.alarm_group_tips'))
         }
       }

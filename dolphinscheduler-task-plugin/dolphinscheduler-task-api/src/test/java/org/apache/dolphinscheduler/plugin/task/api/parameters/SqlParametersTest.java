@@ -20,6 +20,7 @@ package org.apache.dolphinscheduler.plugin.task.api.parameters;
 import static org.junit.Assert.assertNotNull;
 
 import org.apache.dolphinscheduler.plugin.task.api.enums.Direct;
+import org.apache.dolphinscheduler.plugin.task.api.enums.QueryResultSendType;
 import org.apache.dolphinscheduler.plugin.task.api.model.Property;
 import org.apache.dolphinscheduler.plugin.task.api.enums.DataType;
 
@@ -38,7 +39,7 @@ public class SqlParametersTest {
     private final String udfs = "test-udfs-1.0.0-SNAPSHOT.jar";
     private final int datasource = 1;
     private final int sqlType = 0;
-    private final Boolean sendEmail = true;
+    private final int queryResultSendType = QueryResultSendType.EMAIL.ordinal();
     private final int displayRows = 10;
     private final String showType = "TABLE";
     private final String title = "sql test";
@@ -62,7 +63,7 @@ public class SqlParametersTest {
         sqlParameters.setUdfs(udfs);
         sqlParameters.setDatasource(datasource);
         sqlParameters.setSqlType(sqlType);
-        sqlParameters.setSendEmail(sendEmail);
+        sqlParameters.setQueryResultSendType(queryResultSendType);
         sqlParameters.setDisplayRows(displayRows);
         sqlParameters.setShowType(showType);
         sqlParameters.setTitle(title);
@@ -73,7 +74,7 @@ public class SqlParametersTest {
         Assert.assertEquals(udfs, sqlParameters.getUdfs());
         Assert.assertEquals(datasource, sqlParameters.getDatasource());
         Assert.assertEquals(sqlType, sqlParameters.getSqlType());
-        Assert.assertEquals(sendEmail, sqlParameters.getSendEmail());
+        Assert.assertEquals(queryResultSendType, sqlParameters.getQueryResultSendType());
         Assert.assertEquals(displayRows, sqlParameters.getDisplayRows());
         Assert.assertEquals(showType, sqlParameters.getShowType());
         Assert.assertEquals(title, sqlParameters.getTitle());

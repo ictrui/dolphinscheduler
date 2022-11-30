@@ -271,8 +271,9 @@ public class SqlTask extends AbstractTaskExecutor {
             sendAttachment(sqlParameters.getGroupId(), StringUtils.isNotEmpty(sqlParameters.getTitle())
                     ? sqlParameters.getTitle()
                     : taskExecutionContext.getTaskName() + " query result sets", result);
-        }else {
-            sendAttachment(sqlParameters.getGroupId(), taskExecutionContext.getTaskName() + " query result success", result);
+        }else if (sqlParameters.getQueryResultSendType() == QueryResultSendType.ROCKET_MQ.ordinal()){
+            String title = String.format("%s-%s-%s", taskExecutionContext.getProcessInstanceId(), taskExecutionContext.getTaskName(), "query result success");
+            sendAttachment(sqlParameters.getGroupId(), title, result);
         }
         logger.debug("execute sql result : {}", result);
         return result;

@@ -199,6 +199,11 @@ public class TaskConstants {
     public static final String PARAMETER_TASK_EXECUTE_PATH = "system.task.execute.path";
 
     /**
+     * the instance id of current process
+     */
+    public static final String PARAMETER_PROCESS_INSTANCE_ID = "system.process.instance.id";
+
+    /**
      * the instance id of current task
      */
     public static final String PARAMETER_TASK_INSTANCE_ID = "system.task.instance.id";

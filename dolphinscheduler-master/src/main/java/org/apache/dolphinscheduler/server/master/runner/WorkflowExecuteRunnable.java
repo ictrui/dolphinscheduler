@@ -692,6 +692,15 @@ public class WorkflowExecuteRunnable implements Callable<WorkflowSubmitStatue> {
         }
     }
 
+    public void startProcess(){
+        if (workflowRunnableStatus == WorkflowRunnableStatus.STARTED){
+            if (processAlertManager.isNeedToSendStartNotification(processInstance)){
+                ProjectUser projectUser = processService.queryProjectWithUserByProcessInstanceId(processInstance.getId());
+                processAlertManager.sendAlertProcessInstance(processInstance, projectUser);
+            }
+        }
+    }
+
     /**
      * process end handle
      */

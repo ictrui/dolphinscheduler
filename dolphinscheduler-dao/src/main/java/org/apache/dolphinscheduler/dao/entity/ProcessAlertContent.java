@@ -61,6 +61,8 @@ public class ProcessAlertContent implements Serializable {
     private Date processEndTime;
     @JsonProperty("processHost")
     private String processHost;
+    @JsonProperty("taskId")
+    private int taskId;
     @JsonProperty("taskCode")
     private Long taskCode;
     @JsonProperty("taskName")
@@ -99,6 +101,7 @@ public class ProcessAlertContent implements Serializable {
         this.processStartTime = builder.processStartTime;
         this.processEndTime = builder.processEndTime;
         this.processHost = builder.processHost;
+        this.taskId = builder.taskId;
         this.taskCode = builder.taskCode;
         this.taskName = builder.taskName;
         this.event = builder.event;
@@ -132,6 +135,7 @@ public class ProcessAlertContent implements Serializable {
         private Date processStartTime;
         private Date processEndTime;
         private String processHost;
+        private int taskId;
         private Long taskCode;
         private String taskName;
         private AlertEvent event;
@@ -266,6 +270,11 @@ public class ProcessAlertContent implements Serializable {
 
         public Builder logPath(String logPath) {
             this.logPath = logPath;
+            return this;
+        }
+
+        public Builder taskId(int taskId) {
+            this.taskId = taskId;
             return this;
         }
 

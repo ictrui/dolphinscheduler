@@ -54,7 +54,7 @@ interface ProcessInstanceReq extends ProcessDefinitionCodeReq {
   processInstancePriority: 'HIGHEST' | 'HIGH' | 'MEDIUM' | 'LOW' | 'LOWEST'
   scheduleTime: string
   warningGroupId: number
-  warningType: 'NONE' | 'SUCCESS' | 'FAILURE' | 'ALL'
+  warningType: 'NONE' | 'SUCCESS' | 'FAILURE' | 'ALL' | 'END_AND_START'
   dryRun?: number
   environmentCode?: number
   execType?: Exec

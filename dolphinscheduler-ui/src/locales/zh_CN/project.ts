@@ -106,6 +106,7 @@ export default {
     success_send: '成功发',
     failure_send: '失败发',
     all_send: '成功或失败都发',
+    all_send_include_start: '启动及结束都发',
     whether_complement_data: '是否是补数',
     schedule_date: '调度日期',
     mode_of_execution: '执行方式',

@@ -38,10 +38,21 @@ spring:
     init:
       schema-locations: classpath:sql/dolphinscheduler_h2.sql
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:dolphinscheduler;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=true
-    username: sa
-    password: ""
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://101.42.167.97:5432/test
+    username: test
+    password: h82Yl$4qkv5
+    hikari:
+      connection-test-query: select 1
+      minimum-idle: 5
+      auto-commit: true
+      validation-timeout: 3000
+      pool-name: DolphinScheduler
+      maximum-pool-size: 50
+      connection-timeout: 30000
+      idle-timeout: 600000
+      leak-detection-threshold: 0
+      initialization-fail-timeout: 1
   quartz:
     job-store-type: jdbc
     jdbc:
@@ -60,7 +71,7 @@ spring:
       org.quartz.threadPool.threadCount: 25
       org.quartz.jobStore.misfireThreshold: 60000
       org.quartz.scheduler.makeSchedulerThreadDaemon: true
-      org.quartz.jobStore.driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+      org.quartz.jobStore.driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
       org.quartz.jobStore.clusterCheckinInterval: 5000
   servlet:
     multipart:

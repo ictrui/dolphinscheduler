@@ -67,6 +67,7 @@ public final class AlertPluginManager {
                         .addParamsOptions(new ParamsOptions(WarningType.SUCCESS.getDescp(), WarningType.SUCCESS.getDescp(), false))
                         .addParamsOptions(new ParamsOptions(WarningType.FAILURE.getDescp(), WarningType.FAILURE.getDescp(), false))
                         .addParamsOptions(new ParamsOptions(WarningType.ALL.getDescp(), WarningType.ALL.getDescp(), false))
+                        .addParamsOptions(new ParamsOptions(WarningType.END_AND_START.getDescp(), WarningType.END_AND_START.getDescp(), false))
                         .setValue(WarningType.ALL.getDescp())
                         .addValidate(Validate.newBuilder().setRequired(true).build())
                         .build();

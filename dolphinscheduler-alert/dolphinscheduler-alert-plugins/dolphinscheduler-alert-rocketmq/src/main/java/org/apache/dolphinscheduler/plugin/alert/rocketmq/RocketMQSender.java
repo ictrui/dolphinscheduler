@@ -72,12 +72,20 @@ public final class RocketMQSender {
     private Message generateMsgFromContent(String title, String content){
         String key;
         if (title.toLowerCase().contains("query result")){
+            // sql task query result
             key = title;
-        }else {
+        } else {
+            // process instance execution status
             JsonNode processAlertContent = JSONUtils.parseArray(content).get(0);
             String processInstanceId = processAlertContent.get("processId").asText();
             String processInstanceName = processAlertContent.get("processName").asText();
-            key = String.format("%s-%s-execution %s", processInstanceId, processInstanceName, title.toLowerCase().contains("success") ? "success" : "failed");
+            if (title.toLowerCase().contains("[start]")){
+                // process instance starts
+                key = String.format("%s-%s-execution %s", processInstanceId, processInstanceName, "start");
+            }else {
+                // process instance ends
+                key = String.format("%s-%s-execution %s", processInstanceId, processInstanceName, title.toLowerCase().contains("success") ? "success" : "failed");
+            }
         }
         return new Message(topic, tags, key, content.getBytes(StandardCharsets.UTF_8));
     }

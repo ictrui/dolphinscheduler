@@ -104,6 +104,7 @@ export default {
     success_send: 'Success',
     failure_send: 'Failure',
     all_send: 'All',
+    all_send_include_start: 'Start And End',
     whether_complement_data: 'Whether it is a complement process?',
     schedule_date: 'Schedule date',
     mode_of_execution: 'Mode of execution',

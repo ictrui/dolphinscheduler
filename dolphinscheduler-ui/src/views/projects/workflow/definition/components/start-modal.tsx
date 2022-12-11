@@ -106,6 +106,10 @@ export default defineComponent({
       {
         value: 'ALL',
         label: t('project.workflow.all_send')
+      },
+      {
+        value: 'END_AND_START',
+        label: t('project.workflow.all_send_include_start')
       }
     ]
 

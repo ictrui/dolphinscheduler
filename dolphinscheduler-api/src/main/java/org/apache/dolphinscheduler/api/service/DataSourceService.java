@@ -58,6 +58,14 @@ public interface DataSourceService {
     Map<String, Object> queryDataSource(int id);
 
     /**
+     * updateProcessInstance datasource
+     *
+     * @param name datasource name
+     * @return data source detail
+     */
+    Map<String, Object> queryDataSourceByName(String name);
+
+    /**
      * query datasource list by keyword
      *
      * @param loginUser login user

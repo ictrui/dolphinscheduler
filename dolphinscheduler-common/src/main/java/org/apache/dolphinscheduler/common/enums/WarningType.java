@@ -26,6 +26,7 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.google.common.base.Functions;
 
 /**
+ * TODO: maybe not proper to send warning when process starts here
  * types for whether to send warning when process ends;
  */
 public enum WarningType {
@@ -34,11 +35,13 @@ public enum WarningType {
      * 1 send if process success;
      * 2 send if process failed;
      * 3 send if process ends, whatever the result;
+     * 4 send if process starts and ends;
      */
     NONE(0, "none"),
     SUCCESS(1, "success"),
     FAILURE(2, "failure"),
-    ALL(3, "all");
+    ALL(3, "all"),
+    END_AND_START(4,"endAndStart");
 
     WarningType(int code, String descp) {
         this.code = code;

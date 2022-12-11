@@ -319,6 +319,10 @@ export const warningTypeList = [
   {
     id: 'ALL',
     code: 'project.workflow.all_send'
+  },
+  {
+    id: 'END_AND_START',
+    code: 'project.workflow.all_send_include_start'
   }
 ]
 

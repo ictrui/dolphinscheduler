@@ -213,6 +213,20 @@ public class DataSourceServiceImpl extends BaseServiceImpl implements DataSource
     }
 
     /**
+     * query datasource by name
+     * @param  name datasource name
+     * @return
+     */
+    @Override
+    public Map<String, Object> queryDataSourceByName(String name)  {
+        Map<String, Object> result = new HashMap<>();
+        List<DataSource> datasourceList  = dataSourceMapper.queryDataSourceByName(name);
+        result.put(Constants.DATA_LIST, datasourceList);
+        putMsg(result, Status.SUCCESS);
+        return result;
+    }
+
+    /**
      * query datasource list by keyword
      *
      * @param loginUser login user

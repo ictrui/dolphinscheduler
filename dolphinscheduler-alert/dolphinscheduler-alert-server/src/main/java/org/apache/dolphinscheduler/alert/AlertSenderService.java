@@ -200,6 +200,7 @@ public final class AlertSenderService extends Thread {
 
         boolean sendWarning = false;
         switch (warningType) {
+            case END_AND_START:
             case ALL:
                 sendWarning = true;
                 break;

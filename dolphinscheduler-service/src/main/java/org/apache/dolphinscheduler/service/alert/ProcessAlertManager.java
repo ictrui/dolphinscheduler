@@ -138,7 +138,7 @@ public class ProcessAlertManager {
                         .processDefinitionCode(processInstance.getProcessDefinitionCode())
                         .processName(processInstance.getName())
                         .processType(processInstance.getCommandType())
-                        .taskId(processInstance.getId())
+                        .taskId(task.getId())
                         .taskCode(task.getTaskCode())
                         .taskName(task.getName())
                         .taskType(task.getTaskType())

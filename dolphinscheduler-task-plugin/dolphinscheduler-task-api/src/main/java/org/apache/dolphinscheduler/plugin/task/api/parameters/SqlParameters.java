@@ -71,7 +71,7 @@ public class SqlParameters extends AbstractParameters {
      * query result send type
      * 0 NOTHING
      * 1 EMAIL
-     * 2 ROCKET_MQ
+     * 2 MQ
      */
     private int queryResultSendType;
 

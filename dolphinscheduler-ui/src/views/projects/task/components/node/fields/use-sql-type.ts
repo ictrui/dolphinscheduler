@@ -46,7 +46,7 @@ export function useSqlType(model: { [field: string]: any }): IJsonItem[] {
   const QUERY_RESULT_SEND_TYPES = [
     { label: t('project.node.send_to_nothing'), value: '0' },
     { label: t('project.node.send_emails'), value: '1' },
-    { label: t('project.node.send_to_rocket_mq'), value: '2' },
+    { label: t('project.node.send_to_mq'), value: '2' },
   ]
 
   const getGroups = async () => {

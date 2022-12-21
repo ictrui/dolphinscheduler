@@ -410,7 +410,7 @@ export default {
     sql_type_non_query: '非查询',
     send_to_nothing: '不发送',
     send_emails: '发送邮件',
-    send_to_rocket_mq: '发送到rocketMQ',
+    send_to_mq: '发送到消息队列',
     query_result_send_type: '查询结果发送',
     sql_statement: 'SQL语句',
     pre_sql_statement: '前置SQL语句',

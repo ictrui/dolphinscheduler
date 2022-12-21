@@ -74,7 +74,7 @@ public final class AlertSenderService extends Thread {
             try {
                 List<Alert> alerts = alertDao.listPendingAlerts();
                 this.send(alerts);
-                ThreadUtils.sleep(Constants.SLEEP_TIME_MILLIS * 5L);
+                ThreadUtils.sleep(Constants.SLEEP_TIME_MILLIS * 3L);
             } catch (Exception e) {
                 logger.error("alert sender thread error", e);
             }

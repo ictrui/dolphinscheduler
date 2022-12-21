@@ -414,7 +414,7 @@ export default {
     sql_type_non_query: 'Non Query',
     send_to_nothing: 'No send',
     send_emails: 'Send emails',
-    send_to_rocket_mq: 'Send to rocketMQ',
+    send_to_mq: 'Send to MQ',
     query_result_send_type: 'Query Result Send Type',
     sql_statement: 'SQL Statement',
     pre_sql_statement: 'Pre SQL Statement',

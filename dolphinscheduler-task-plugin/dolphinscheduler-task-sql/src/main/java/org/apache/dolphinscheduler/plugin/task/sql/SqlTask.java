@@ -26,6 +26,7 @@ import org.apache.dolphinscheduler.plugin.task.api.TaskConstants;
 import org.apache.dolphinscheduler.plugin.task.api.TaskException;
 import org.apache.dolphinscheduler.plugin.task.api.TaskExecutionContext;
 import org.apache.dolphinscheduler.plugin.task.api.enums.Direct;
+import org.apache.dolphinscheduler.plugin.task.api.enums.QueryResultSendType;
 import org.apache.dolphinscheduler.plugin.task.api.enums.SqlType;
 import org.apache.dolphinscheduler.plugin.task.api.enums.TaskTimeoutStrategy;
 import org.apache.dolphinscheduler.plugin.task.api.model.Property;
@@ -266,10 +267,13 @@ public class SqlTask extends AbstractTaskExecutor {
             }
         }
         String result = JSONUtils.toJsonString(resultJSONArray);
-        if (sqlParameters.getSendEmail() == null || sqlParameters.getSendEmail()) {
+        if (sqlParameters.getQueryResultSendType() == QueryResultSendType.EMAIL.ordinal()) {
             sendAttachment(sqlParameters.getGroupId(), StringUtils.isNotEmpty(sqlParameters.getTitle())
                     ? sqlParameters.getTitle()
                     : taskExecutionContext.getTaskName() + " query result sets", result);
+        }else if (sqlParameters.getQueryResultSendType() == QueryResultSendType.ROCKET_MQ.ordinal()){
+            String title = String.format("%s-%s-%s", taskExecutionContext.getProcessInstanceId(), taskExecutionContext.getTaskName(), "query result success");
+            sendAttachment(sqlParameters.getGroupId(), title, result);
         }
         logger.debug("execute sql result : {}", result);
         return result;

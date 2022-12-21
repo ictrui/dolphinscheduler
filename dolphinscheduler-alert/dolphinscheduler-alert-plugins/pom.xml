@@ -36,6 +36,8 @@
         <module>dolphinscheduler-alert-pagerduty</module>
         <module>dolphinscheduler-alert-webexteams</module>
         <module>dolphinscheduler-alert-telegram</module>
+        <module>dolphinscheduler-alert-rocketmq</module>
+        <module>dolphinscheduler-alert-rabbitmq</module>
     </modules>
 
     <dependencies>

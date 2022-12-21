@@ -180,10 +180,12 @@ export function formatParams(data: INodeData): {
     taskParams.preStatements = data.preStatements
     taskParams.postStatements = data.postStatements
     taskParams.segmentSeparator = data.segmentSeparator
-    taskParams.sendEmail = data.sendEmail
+    taskParams.queryResultSendType = data.queryResultSendType
     taskParams.displayRows = data.displayRows
-    if (data.sqlType === '0' && data.sendEmail) {
+    if (data.queryResultSendType === '1') {
       taskParams.title = data.title
+      taskParams.groupId = data.groupId
+    }else if(data.queryResultSendType === '2') {
       taskParams.groupId = data.groupId
     }
     if (data.type === 'HIVE') {

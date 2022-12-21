@@ -257,6 +257,7 @@ interface ITaskParams {
   sqlType?: string
   segmentSeparator?: string
   sendEmail?: boolean
+  queryResultSendType?: string
   displayRows?: number
   title?: string
   groupId?: string

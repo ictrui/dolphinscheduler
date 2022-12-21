@@ -143,6 +143,22 @@ public class DataSourceController extends BaseController {
         return returnDataList(result);
     }
 
+    @ApiOperation(value = "queryDataSourceByName", notes = "QUERY_DATA_SOURCE_BY_NAME_NOTES")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "DATA_SOURCE_NAME", required = true, dataType = "String", example = "测试数据源")
+
+    })
+    @GetMapping(value = "/name/{name}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiException(QUERY_DATASOURCE_ERROR)
+    @AccessLogAnnotation(ignoreRequestArgs = "loginUser")
+    public Result queryDataSourceByName(@ApiIgnore @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                  @PathVariable("name") String name) {
+
+        Map<String, Object> result = dataSourceService.queryDataSourceByName(name);
+        return returnDataList(result);
+    }
+
     /**
      * query datasource by type
      *

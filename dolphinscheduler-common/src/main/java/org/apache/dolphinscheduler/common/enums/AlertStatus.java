@@ -24,12 +24,13 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
  */
 public enum AlertStatus {
     /**
-     * 0 waiting executed; 1 execute successfully，2 execute failed
+     * 0 waiting executed; 1 execute successfully，2 execute failed, 3 execute partial successfully, 4 start successfully
      */
     WAIT_EXECUTION(0, "waiting executed"),
     EXECUTION_SUCCESS(1, "execute successfully"),
     EXECUTION_FAILURE(2, "execute failed"),
-    EXECUTION_PARTIAL_SUCCESS(3, "execute partial successfully");
+    EXECUTION_PARTIAL_SUCCESS(3, "execute partial successfully"),
+    START_SUCCESS(4, "start successfully");
 
     AlertStatus(int code, String descp) {
         this.code = code;

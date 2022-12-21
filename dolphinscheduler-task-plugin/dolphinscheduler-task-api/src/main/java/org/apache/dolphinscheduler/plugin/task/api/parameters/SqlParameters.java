@@ -68,9 +68,12 @@ public class SqlParameters extends AbstractParameters {
     private int sqlType;
 
     /**
-     * send email
+     * query result send type
+     * 0 NOTHING
+     * 1 EMAIL
+     * 2 MQ
      */
-    private Boolean sendEmail;
+    private int queryResultSendType;
 
     /**
      * display rows
@@ -170,14 +173,6 @@ public class SqlParameters extends AbstractParameters {
         this.sqlType = sqlType;
     }
 
-    public Boolean getSendEmail() {
-        return sendEmail;
-    }
-
-    public void setSendEmail(Boolean sendEmail) {
-        this.sendEmail = sendEmail;
-    }
-
     public int getDisplayRows() {
         return displayRows;
     }
@@ -200,6 +195,14 @@ public class SqlParameters extends AbstractParameters {
 
     public void setConnParams(String connParams) {
         this.connParams = connParams;
+    }
+
+    public int getQueryResultSendType() {
+        return queryResultSendType;
+    }
+
+    public void setQueryResultSendType(int queryResultSendType) {
+        this.queryResultSendType = queryResultSendType;
     }
 
     public String getTitle() {
@@ -306,7 +309,7 @@ public class SqlParameters extends AbstractParameters {
                 + ", datasource=" + datasource
                 + ", sql='" + sql + '\''
                 + ", sqlType=" + sqlType
-                + ", sendEmail=" + sendEmail
+                + ", queryResultSendType=" + queryResultSendType
                 + ", displayRows=" + displayRows
                 + ", limit=" + limit
                 + ", segmentSeparator=" + segmentSeparator

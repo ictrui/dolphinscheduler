@@ -238,7 +238,7 @@ public class DataxGenerateJsonFromConfiguration {
         ElasticSearchDataxParams elasticSearchDataxParams = new ElasticSearchDataxParams();
         elasticSearchDataxParams.setIndex("test_index");
         elasticSearchDataxParams.setType("_doc");
-        elasticSearchDataxParams.setClearnUp(true);
+        elasticSearchDataxParams.setCleanUp(true);
         elasticSearchDataxParams.setIgnoreWriteError(false);
         elasticSearchDataxParams.setIgnoreParseError(false);
         elasticSearchDataxParams.setTyrSize(30);

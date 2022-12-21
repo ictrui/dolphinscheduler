@@ -54,7 +54,7 @@ interface CreateScheduleReq extends ScheduleReq, ProcessDefinitionCodeReq {
   failureStrategy?: 'END' | 'CONTINUE'
   processInstancePriority?: 'HIGHEST' | 'HIGH' | 'MEDIUM' | 'LOW' | 'LOWEST'
   warningGroupId?: number
-  warningType?: 'NONE' | 'SUCCESS' | 'FAILURE' | 'ALL'
+  warningType?: 'NONE' | 'SUCCESS' | 'FAILURE' | 'ALL' | 'END_AND_START'
   workerGroup?: string
 }
 

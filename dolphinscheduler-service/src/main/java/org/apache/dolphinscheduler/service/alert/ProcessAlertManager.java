@@ -137,6 +137,8 @@ public class ProcessAlertManager {
                         .processId(processInstance.getId())
                         .processDefinitionCode(processInstance.getProcessDefinitionCode())
                         .processName(processInstance.getName())
+                        .processType(processInstance.getCommandType())
+                        .taskId(task.getId())
                         .taskCode(task.getTaskCode())
                         .taskName(task.getName())
                         .taskType(task.getTaskType())
@@ -222,7 +224,7 @@ public class ProcessAlertManager {
         Alert alert = new Alert();
 
         String cmdName = getCommandCnName(processInstance.getCommandType());
-        String success = processInstance.getState().typeIsSuccess() ? "success" : "failed";
+        String success = processInstance.getState().typeIsSuccess() ? "[success]" : "[failed]";
         alert.setTitle(cmdName + " " + success);
         alert.setWarningType(processInstance.getState().typeIsSuccess() ? WarningType.SUCCESS : WarningType.FAILURE);
         String content = getContentProcessInstance(processInstance, taskInstances, projectUser);
@@ -237,8 +239,45 @@ public class ProcessAlertManager {
         logger.info("add alert to db , alert: {}", alert);
     }
 
+    public void sendAlertProcessInstance(ProcessInstance processInstance,
+                                         ProjectUser projectUser) {
+
+        if (!isNeedToSendStartNotification(processInstance)) {
+            return;
+        }
+
+        Alert alert = new Alert();
+        String cmdName = getCommandCnName(processInstance.getCommandType());
+        alert.setTitle(cmdName + " " + "[start]");
+        alert.setWarningType(WarningType.END_AND_START);
+        List<ProcessAlertContent> processInstanceInfo = new ArrayList<>(1);
+        ProcessAlertContent processAlertContent = ProcessAlertContent.newBuilder()
+                .projectCode(projectUser.getProjectCode())
+                .projectName(projectUser.getProjectName())
+                .owner(projectUser.getUserName())
+                .processId(processInstance.getId())
+                .processDefinitionCode(processInstance.getProcessDefinitionCode())
+                .processName(processInstance.getName())
+                .processType(processInstance.getCommandType())
+                .processState(processInstance.getState())
+                .build();
+        processInstanceInfo.add(processAlertContent);
+        String content = JSONUtils.toJsonString(processInstanceInfo);
+        alert.setContent(content);
+        alert.setAlertGroupId(processInstance.getWarningGroupId());
+        alert.setCreateTime(new Date());
+        alert.setProjectCode(projectUser.getProjectCode());
+        alert.setProcessDefinitionCode(processInstance.getProcessDefinitionCode());
+        alert.setProcessInstanceId(processInstance.getId());
+        alert.setAlertType(AlertType.PROCESS_INSTANCE_START);
+        alertDao.addAlert(alert);
+        logger.info("add alert to db , alert: {}", alert);
+    }
+
+
+
     /**
-     * check if need to be send warning
+     * check if need to be send warning when process is finished
      *
      * @param processInstance
      * @return
@@ -250,6 +289,7 @@ public class ProcessAlertManager {
         boolean sendWarning = false;
         WarningType warningType = processInstance.getWarningType();
         switch (warningType) {
+            case END_AND_START:
             case ALL:
                 if (processInstance.getState().typeIsFinished()) {
                     sendWarning = true;
@@ -268,6 +308,13 @@ public class ProcessAlertManager {
             default:
         }
         return sendWarning;
+    }
+
+    public boolean isNeedToSendStartNotification(ProcessInstance processInstance){
+        if (Flag.YES == processInstance.getIsSubProcess()) {
+            return false;
+        }
+        return processInstance.getWarningType() == WarningType.END_AND_START;
     }
 
     /**

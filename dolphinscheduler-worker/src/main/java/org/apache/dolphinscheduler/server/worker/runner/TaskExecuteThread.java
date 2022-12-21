@@ -20,6 +20,7 @@ package org.apache.dolphinscheduler.server.worker.runner;
 import static org.apache.dolphinscheduler.common.Constants.SINGLE_SLASH;
 
 import org.apache.dolphinscheduler.common.Constants;
+import org.apache.dolphinscheduler.common.enums.AlertType;
 import org.apache.dolphinscheduler.common.enums.WarningType;
 import org.apache.dolphinscheduler.common.exception.StorageOperateNoConfiguredException;
 import org.apache.dolphinscheduler.common.storage.StorageOperate;
@@ -28,6 +29,8 @@ import org.apache.dolphinscheduler.common.utils.DateUtils;
 import org.apache.dolphinscheduler.common.utils.JSONUtils;
 import org.apache.dolphinscheduler.common.utils.LoggerUtils;
 import org.apache.dolphinscheduler.common.utils.PropertyUtils;
+import org.apache.dolphinscheduler.dao.AlertDao;
+import org.apache.dolphinscheduler.dao.entity.Alert;
 import org.apache.dolphinscheduler.plugin.task.api.AbstractTask;
 import org.apache.dolphinscheduler.plugin.task.api.TaskChannel;
 import org.apache.dolphinscheduler.plugin.task.api.TaskExecutionContext;
@@ -63,6 +66,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.micrometer.core.lang.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * task scheduler thread
@@ -99,6 +103,9 @@ public class TaskExecuteThread implements Runnable, Delayed {
     private final AlertClientService alertClientService;
 
     private TaskPluginManager taskPluginManager;
+
+    @Autowired
+    private AlertDao alertDao;
 
     /**
      * constructor
@@ -209,6 +216,7 @@ public class TaskExecuteThread implements Runnable, Delayed {
 
             // task result process
             if (this.task.getNeedAlert()) {
+//                sendAlert(this.task.getTaskAlertInfo(), this.task.getExitStatus().getCode());
                 sendAlert(this.task.getTaskAlertInfo(), this.task.getExitStatus().getCode());
             }
 

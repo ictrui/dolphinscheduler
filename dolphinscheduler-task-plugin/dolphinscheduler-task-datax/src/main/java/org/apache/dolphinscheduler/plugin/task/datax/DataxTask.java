@@ -74,11 +74,7 @@ public class DataxTask extends AbstractTaskExecutor {
      * jvm parameters
      */
     public static final String JVM_PARAM = " --jvm=\"-Xms%sG -Xmx%sG\" ";
-    /**
-     * python process(datax only supports version 2.7 by default)
-     */
-    private static final String DATAX_PYTHON = "python2.7";
-    private static final Pattern PYTHON_PATH_PATTERN = Pattern.compile("/bin/python[\\d.]*$");
+
     /**
      * datax path
      */
@@ -520,20 +516,7 @@ public class DataxTask extends AbstractTaskExecutor {
     }
 
     public String getPythonCommand() {
-        String pythonHome = System.getenv("PYTHON_HOME");
-        return getPythonCommand(pythonHome);
-    }
-
-    public String getPythonCommand(String pythonHome) {
-        if (StringUtils.isEmpty(pythonHome)) {
-            return DATAX_PYTHON;
-        }
-        String pythonBinPath = "/bin/" + DATAX_PYTHON;
-        Matcher matcher = PYTHON_PATH_PATTERN.matcher(pythonHome);
-        if (matcher.find()) {
-            return matcher.replaceAll(pythonBinPath);
-        }
-        return Paths.get(pythonHome, pythonBinPath).toString();
+        return System.getenv("PYTHON_HOME");
     }
 
     public String loadJvmEnv(DataxParameters dataXParameters) {

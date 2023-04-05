@@ -661,7 +661,6 @@ public class DataxTask extends AbstractTaskExecutor {
     }
 
     public HiveMetadata tryGetHiveTableMetadataFromDDL(BaseConnectionParam baseDataSource, String table) {
-        String[] columnNames;
         String sql = String.format("SHOW CREATE TABLE %s", table);
 
         try (
@@ -680,11 +679,6 @@ public class DataxTask extends AbstractTaskExecutor {
             Pattern locationPattern = Pattern.compile("LOCATION\\s*\\n\\s*'(.*?)'");
             Matcher locationMatcher = locationPattern.matcher(ddl);
             HiveMetadata hiveMetadata = new HiveMetadata();
-            if (fieldDelimiterMatcher.find()){
-                String fd = fieldDelimiterMatcher.group(1);
-                fd = fd.replace("\\t","\t");
-                hiveMetadata.setFieldDelimiter(fd);
-            }
             if (inputFormatMatcher.find()){
                 String input = inputFormatMatcher.group(1);
                 if (input.contains("TextInputFormat")){
@@ -693,6 +687,18 @@ public class DataxTask extends AbstractTaskExecutor {
                     hiveMetadata.setFileType("orc");
                 }else {
                     throw new RuntimeException("parse hive metadata failed: only support orcfile and textfile");
+                }
+            }
+            if (fieldDelimiterMatcher.find()){
+                String fd = fieldDelimiterMatcher.group(1);
+                fd = fd.replace("\\t","\t");
+                hiveMetadata.setFieldDelimiter(fd);
+            }else {
+                if (hiveMetadata.getFileType().equals("orc")){
+                    logger.warn("table is orcfile, set fieldDelimiter default '\\t'");
+                    hiveMetadata.setFieldDelimiter("\t");
+                }else {
+                    throw new RuntimeException("parse hive metadata failed: cannot find fieldDelimiter");
                 }
             }
             if (locationMatcher.find()) {

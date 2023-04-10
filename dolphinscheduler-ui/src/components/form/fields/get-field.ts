@@ -28,6 +28,7 @@ const TYPES: IType[] = [
   'switch',
   'input-number',
   'select',
+  'filterable-select',
   'checkbox',
   'tree-select',
   'multi-input',

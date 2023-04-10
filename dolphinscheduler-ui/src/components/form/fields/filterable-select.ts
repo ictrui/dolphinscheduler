@@ -15,18 +15,24 @@
  * limitations under the License.
  */
 
-export { renderInput } from './input'
-export { renderRadio } from './radio'
-export { renderEditor } from './monaco-editor'
-export { renderCustomParameters } from './custom-parameters'
-export { renderSwitch } from './switch'
-export { renderInputNumber } from './input-number'
-export { renderSelect } from './select'
-export { renderFilterableSelect } from './filterable-select'
-export { renderCheckbox } from './checkbox'
-export { renderTreeSelect } from './tree-select'
-export { renderMultiInput } from './multi-input'
-export { renderMultiCondition } from './multi-condition'
-export { renderDspartitionInput } from './dspartitions-input'
-export { renderDivider } from './divider'
-export { renderFieldMapping } from './field-mapping/field-mapping'
+import { h, unref } from 'vue'
+import { NSelect } from 'naive-ui'
+import { isFunction } from 'lodash'
+import type { IJsonItem } from '../types'
+
+export function renderFilterableSelect(
+  item: IJsonItem,
+  fields: { [field: string]: any }
+) {
+  const { props, field, options = [] } = isFunction(item) ? item() : item
+  return h(NSelect, {
+    ...props,
+    value: fields[field],
+    filterable: true,
+    onUpdateValue: (value: any) => {
+      void (fields[field] = value)
+      if (props?.onUpdateValue) props.onUpdateValue(value)
+    },
+    options: unref(options)
+  })
+}

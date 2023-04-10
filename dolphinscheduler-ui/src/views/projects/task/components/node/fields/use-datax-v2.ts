@@ -538,7 +538,7 @@ export function useDataX(model: { [field: string]: any }): IJsonItem[] {
       }
     },
     {
-      type: 'select',
+      type: 'filterable-select',
       field: 'sourceTable',
       span: sourceTableSpan,
       name: t('project.node.table'),
@@ -659,7 +659,7 @@ export function useDataX(model: { [field: string]: any }): IJsonItem[] {
       }
     },
     {
-      type: 'select',
+      type: 'filterable-select',
       field: 'targetTable',
       span: targetTableSpan,
       name: t('project.node.table'),

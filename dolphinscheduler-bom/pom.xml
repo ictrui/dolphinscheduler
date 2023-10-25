@@ -58,6 +58,7 @@
         <h2.version>1.4.200</h2.version>
         <mysql-connector.version>8.0.16</mysql-connector.version>
         <oracle-jdbc.version>21.5.0.0</oracle-jdbc.version>
+        <orai18n.version>21.5.0.0</orai18n.version>
         <slf4j-api.version>1.7.5</slf4j-api.version>
         <slf4j-log4j12.version>1.7.5</slf4j-log4j12.version>
         <poi.version>4.1.2</poi.version>
@@ -344,6 +345,12 @@
                 <artifactId>ojdbc8</artifactId>
                 <version>${oracle-jdbc.version}</version>
 <!--                <scope>test</scope>-->
+            </dependency>
+
+            <dependency>
+                <groupId>com.oracle.database.nls</groupId>
+                <artifactId>orai18n</artifactId>
+                <version>${orai18n.version}</version>
             </dependency>
 
             <dependency>

@@ -78,4 +78,16 @@ public enum DbType {
     public boolean isElasticsearch() {
         return this == DbType.ELASTICSEARCH;
     }
+
+    public boolean isPgSQL() {
+        return this == DbType.POSTGRESQL;
+    }
+
+    public boolean isOracle() {
+        return this == DbType.ORACLE;
+    }
+
+    public boolean isDaMeng() {
+        return this == DbType.DM;
+    }
 }

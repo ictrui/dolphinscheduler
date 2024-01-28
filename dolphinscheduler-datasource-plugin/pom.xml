@@ -19,7 +19,7 @@
     <parent>
         <artifactId>dolphinscheduler</artifactId>
         <groupId>org.apache.dolphinscheduler</groupId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>1.0.1-ZHEJIANG</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>dolphinscheduler-datasource-plugin</artifactId>
@@ -28,19 +28,19 @@
 
     <modules>
         <module>dolphinscheduler-datasource-sqlserver</module>
-        <module>dolphinscheduler-datasource-clickhouse</module>
-        <module>dolphinscheduler-datasource-db2</module>
+<!--        <module>dolphinscheduler-datasource-clickhouse</module>-->
+<!--        <module>dolphinscheduler-datasource-db2</module>-->
         <module>dolphinscheduler-datasource-elasticsearch</module>
         <module>dolphinscheduler-datasource-dm</module>
         <module>dolphinscheduler-datasource-hive</module>
         <module>dolphinscheduler-datasource-mysql</module>
-        <module>dolphinscheduler-datasource-oracle</module>
+<!--        <module>dolphinscheduler-datasource-oracle</module>-->
         <module>dolphinscheduler-datasource-postgresql</module>
-        <module>dolphinscheduler-datasource-spark</module>
-        <module>dolphinscheduler-datasource-presto</module>
+<!--        <module>dolphinscheduler-datasource-spark</module>-->
+<!--        <module>dolphinscheduler-datasource-presto</module>-->
         <module>dolphinscheduler-datasource-api</module>
         <module>dolphinscheduler-datasource-all</module>
-        <module>dolphinscheduler-datasource-redshift</module>
+<!--        <module>dolphinscheduler-datasource-redshift</module>-->
     </modules>
 
     <dependencyManagement>

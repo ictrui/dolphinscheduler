@@ -253,8 +253,13 @@ public class DataxTask extends AbstractTaskExecutor {
         } else {
             ObjectNode readerConn = JSONUtils.createObjectNode();
             ArrayNode tableArr = readerConn.putArray("table");
+            boolean needAddDoubleQuotationMarks = needAddDoubleQuotationMarks(dataxTaskExecutionContext.getSourcetype());
             for (String table : new String[]{dataXParameters.getSourceTable()}) {
-                tableArr.add(table);
+                if (needAddDoubleQuotationMarks){
+                    tableArr.add(enclosesStrInQuotationMarks(table));
+                }else {
+                    tableArr.add(table);
+                }
             }
 
             ArrayNode urlArr = readerConn.putArray("jdbcUrl");
@@ -268,7 +273,11 @@ public class DataxTask extends AbstractTaskExecutor {
             ArrayNode columnArr = readerParam.putArray("column");
             for (ColumnInfo columnInfo : dataXParameters.getDsColumns()) {
                 if (columnInfo.isEnable()) {
-                    columnArr.add(columnInfo.getColumnName());
+                    if (needAddDoubleQuotationMarks){
+                        columnArr.add(enclosesStrInQuotationMarks(columnInfo.getColumnName()));
+                    }else {
+                        columnArr.add(columnInfo.getColumnName());
+                    }
                 }
             }
             if (StringUtils.isNotEmpty(dataXParameters.getWhere())) {
@@ -347,10 +356,16 @@ public class DataxTask extends AbstractTaskExecutor {
                 writerParam.put("batchSize", dataXParameters.getBatchSize());
             }
         } else {
+            DbType targetDbType = dataxTaskExecutionContext.getTargetType();
             List<ObjectNode> writerConnArr = new ArrayList<>();
             ObjectNode writerConn = JSONUtils.createObjectNode();
             ArrayNode tableArr = writerConn.putArray("table");
-            tableArr.add(dataXParameters.getTargetTable());
+            String targetTable = dataXParameters.getTargetTable();
+            if (needAddDoubleQuotationMarks(targetDbType)){
+                tableArr.add(enclosesStrInQuotationMarks(targetTable));
+            }else {
+                tableArr.add(targetTable);
+            }
 
             writerConn.put("jdbcUrl", DataSourceUtils.getJdbcUrl(DbType.valueOf(dataXParameters.getDtType()), dataTargetCfg));
             writerConnArr.add(writerConn);
@@ -364,6 +379,7 @@ public class DataxTask extends AbstractTaskExecutor {
             }
 
             if (dataXParameters.getCustomSQL() == Flag.YES.ordinal()) {
+                //  TODO: not support yet
                 BaseConnectionParam dataSourceCfg = (BaseConnectionParam) DataSourceUtils.buildConnectionParams(
                         dataxTaskExecutionContext.getSourcetype(),
                         dataxTaskExecutionContext.getSourceConnectionParams());
@@ -379,7 +395,11 @@ public class DataxTask extends AbstractTaskExecutor {
             } else {
                 ArrayNode columnArr = writerParam.putArray("column");
                 for (ColumnInfo columnInfo : dataXParameters.getDtColumns()) {
-                    columnArr.add(columnInfo.getColumnName());
+                    if (needAddDoubleQuotationMarks(targetDbType)){
+                        columnArr.add(enclosesStrInQuotationMarks(columnInfo.getColumnName()));
+                    }else {
+                        columnArr.add(columnInfo.getColumnName());
+                    }
                 }
             }
             writerParam.putArray("connection").addAll(writerConnArr);
@@ -747,5 +767,18 @@ public class DataxTask extends AbstractTaskExecutor {
             }
             return basePath;
         }
+    }
+
+    /**
+     * when the dbtype is oracle or dameng or postgresql， need to enclose table name and column name in quotation marks. (in case the database is case sensitive)
+     * @param dbType
+     * @return
+     */
+    private boolean needAddDoubleQuotationMarks(DbType dbType){
+        return dbType.isPgSQL() || dbType.isDaMeng() || dbType.isOracle();
+    }
+
+    private String enclosesStrInQuotationMarks(String str){
+        return "\"" + str + "\"";
     }
 }
